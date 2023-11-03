@@ -6,12 +6,26 @@
 //
 
 import SwiftUI
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 @main // 시작
 struct agtmApp: App {
+    
+//    init() {
+//        KakaoSDK.initSDK(appKey: "[네이티브 앱 키]")
+//    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
+//            SignUpView()
+//            ContentView()
+//                .onOpenURL { url in
+//                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+//                        _ = AuthController.handleOpenUrl(url: url)
+//                    }
+//                }
         }
     }
 }

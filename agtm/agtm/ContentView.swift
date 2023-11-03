@@ -7,51 +7,23 @@
 
 import SwiftUI
 
-//뷰 컨텐트와 레이아웃
 struct ContentView: View {
-    let tabList: [String] = ["home", "heart", "dumbbell", "camera"]
-    @State private var selectedTabBar = "home"
-    @State public var xOffSet: CGFloat = 0
-    init() { UITabBar.appearance().isHidden = true }
+//    @State private var selection: Tab = .home
+    @State private var showTabBar = true
+    
+    enum Tab {
+        case home
+        case heart
+        case dumbbell
+        case camera
+    }
     
     var body: some View {
-        ZStack (alignment: Alignment(horizontal: .center,
-                                     vertical: .bottom)) {
-            TabView(selection: $selectedTabBar) {
-                if selectedTabBar == tabList[0] {
-                    HomeView()
-                } else if selectedTabBar == tabList[1] {
-                    ClassView()
-                } else if selectedTabBar == tabList[2] {
-                    LikeView()
-                } else {
-                    ProfileView()
-                }
+        Color.gray800
+            .ignoresSafeArea()
+            .overlay {
+                MainTabBarView(showTabBar: $showTabBar)
             }
-            
-            HStack() {
-                ForEach(tabList,id: \.self) { image in
-                    GeometryReader { reader in
-                        TabbarButton(image: image, selectedTabBar:
-                        selectedTabBar, reader: reader) {
-                            withAnimation(Animation.linear(duration: 0.3)) {
-                                selectedTabBar = image
-                                xOffSet = reader.frame(in: .global).minX
-                            }
-                        }
-                        .onAppear(perform: {
-                            if image == tabList.first {
-                                xOffSet = reader.frame(in: .global).minX
-                            }
-                        })
-                    }.frame(width: 30, height: 30)
-                    if image != tabList.last { Spacer(minLength: 0) }
-                }
-            }
-            .padding(.horizontal, 25).padding(.vertical)
-            .background(Color.white.clipShape(CustomShape(xOffSet: xOffSet)).cornerRadius(10))
-            .padding(.horizontal)
-        }
     }
 }
 
