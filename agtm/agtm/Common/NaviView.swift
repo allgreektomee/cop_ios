@@ -36,11 +36,11 @@ struct NaviView: View {
                 .foregroundColor(.white)
                 .frame(width: 100)
             
-            // right button
+//             right button
             Button {
                 //action
             } label: {
-                Image(rightButton ?? "")
+                Image("")
                     .padding(.trailing, 20)
             }
             

@@ -12,7 +12,7 @@ struct ClassView: View {
     @StateObject var classViewModel = ClassViewModel()
     
     var body: some View {
-        NavigationView {
+        VStack {
             ScrollView(showsIndicators: false) {
                 VStack {
                     ListSlideTitle(title: "올그릭투미", subTitle: "좋아할만한 와인을 추천드릴게요!", image: "rib")
@@ -33,7 +33,6 @@ struct ClassView: View {
                             } placeholder: {
                                 ProgressView()
                             }
-                            
                         }
                     }
                     .padding(.leading, 20)
@@ -47,8 +46,6 @@ struct ClassView: View {
                         .padding(.leading, 48)
                         .padding(.top, 60)
                     
-                    
-                    
                     VStack {
                         ForEach(classViewModel.classList, id: \.self) { wineClass in
                             ClassListCell(showTabBar: $showTabBar, wineClass: wineClass)
@@ -56,17 +53,17 @@ struct ClassView: View {
                         }
                     }
                     .padding(.bottom, 120)
-                    
                 }
-            }
-            
-            .ignoresSafeArea()
-            .background(Color.gray800)
-            .onAppear {
-                classViewModel.getClassList()
-                classViewModel.getNotice(type: 3)
+                .navigationBarBackButtonHidden(true)
             }
         }
+        .ignoresSafeArea()
+        .background(Color.gray800)
+        .onAppear {
+            classViewModel.getClassList()
+            classViewModel.getNotice(type: 3)
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

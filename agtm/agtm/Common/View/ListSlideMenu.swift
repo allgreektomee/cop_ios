@@ -10,6 +10,7 @@ import SwiftUI
 struct ListSlideMenu: View {
     @Binding var showTabBar: Bool
     var itemList: wineList = []
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         ScrollView([.horizontal], showsIndicators: false) {
@@ -22,6 +23,7 @@ struct ListSlideMenu: View {
             .padding(.leading, 24)
         }.padding(.top, 8)
             .padding(.bottom, 8)
+            
     }
 }
 

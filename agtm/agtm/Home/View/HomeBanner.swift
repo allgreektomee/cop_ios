@@ -21,11 +21,11 @@ struct HomeBanner: View {
             let h = geo.size.height
             
             TabView(selection: $currentIndex) {
-                ForEach(0..<banners.count, id: \.self) { index in
+                ForEach(0..<1, id: \.self) { index in
                     ZStack(alignment: .bottomTrailing) {
                         HomeBannerProvider(imageName: "banner"
                                             //banners[index].photos[0].file
-                                           , title: banners[index].name, subTitle: banners[index].name ,w: bannerWidth, h: bannerHeight)
+                                           , title: "", subTitle: "" ,w: w, h: h)
                             .cornerRadius(bannerCornerRadius)
                             .padding(.top, 8)
                             .padding(.bottom, 8)

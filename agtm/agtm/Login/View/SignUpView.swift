@@ -15,13 +15,10 @@ struct SignUpView: View {
     @State var tag:Int? = nil
     @FocusState private var isFocused: Bool
     @StateObject var loginViewModel = LoginViewModel()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            
-            NaviView(leftButton: ["back_arrow"],title: "",rightButton: "")
-                .ignoresSafeArea()
-            
             VStack {
                 TextField(emailText, text: $emailText, prompt: Text("  이메일을 입력해주세요."))
                     .font(.system(size: 14))
@@ -101,8 +98,13 @@ struct SignUpView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image("back_arrow")
+                .imageScale(.large)
+        })
         .background(Color.gray800)
     }
 }

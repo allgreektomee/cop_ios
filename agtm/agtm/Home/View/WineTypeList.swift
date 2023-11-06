@@ -11,15 +11,11 @@ struct WineTypeList: View {
     @StateObject var homeViewModel =  HomeViewModel()
     @Binding var showTabBar: Bool
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-    var wineType: WineType?    
+    var wineType: WineType?
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            NaviView(leftButton: ["back_arrow", "back_home"] ,title: "",rightButton: "search")
-                .ignoresSafeArea()
-                .onAppear {
-                    showTabBar = false
-                }
             
             ScrollView {
                 LazyVGrid(columns: columns) {
@@ -36,8 +32,14 @@ struct WineTypeList: View {
             }
             .background(Color.gray800)
         }
-        .ignoresSafeArea()
+        
         .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image("back_arrow")
+                .imageScale(.large)
+        })
         .background(Color.gray800)
     }
 }

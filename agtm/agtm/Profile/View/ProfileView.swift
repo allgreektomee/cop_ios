@@ -12,7 +12,6 @@ struct ProfileView: View {
     @Binding var showTabBar: Bool
     
     var body: some View {
-        NavigationView {
             VStack {
                 ProfileCell(title: "프로필 정보", cellHeight: 120)
                     .overlay {
@@ -130,8 +129,6 @@ struct ProfileView: View {
                 profileViewModel.getClassReviewList(username: Common.shared.loginID ?? "")
             }
             .background(Color.gray800)
-        }
-        .background(Color.gray800)
     }
 }
 

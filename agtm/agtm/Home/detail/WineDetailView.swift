@@ -12,13 +12,14 @@ struct WineDetailView: View {
     @Binding var showTabBar: Bool
     @State var wineLiked: Bool
     var wineID: Int
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            NaviView(leftButton: ["back_arrow", "back_home"],title: "상세",rightButton: "search")
-                .ignoresSafeArea()
-            
+            //            NaviView(leftButton: ["back_arrow", "back_home"],title: "상세",rightButton: "search")
+            //                .ignoresSafeArea()
             ScrollView(showsIndicators: false) {
+                
                 VStack(alignment: .leading) {
                     AsyncImage(url: URL(string: homeViewModel.wineDetail?.photos[0].file ?? "")) { image in
                         image
@@ -52,7 +53,7 @@ struct WineDetailView: View {
                         .multilineTextAlignment(.leading)
                         .frame(width: UIScreen.main.bounds.width - 48, alignment: .leading)
                         .padding(.leading, 6)
-//                        .padding(.top)
+                    //                        .padding(.top)
                     
                     Text(homeViewModel.wineDetail?.nameEn ?? "")
                         .font(.system(size: 14, weight: .medium))
@@ -84,6 +85,7 @@ struct WineDetailView: View {
                         .padding(.leading, 6)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear {
                 homeViewModel.getWineDatail(pk: wineID)
             }
@@ -98,11 +100,11 @@ struct WineDetailView: View {
                                 print(completion)
                             } receiveValue: { response in
                                 if response {
-//                                    self.tag = 1
+                                    //                                    self.tag = 1
                                     self.wineLiked.toggle()
                                 }
                             }.store(in: &homeViewModel.cancellables)
-
+                        
                         
                     } label: {
                         Image(wineLiked ? "heart_full" : "heart")
@@ -110,7 +112,7 @@ struct WineDetailView: View {
                             .frame(width: 40, height: 40)
                             .frame(alignment: .leading)
                     }
-
+                    
                     
                     NavigationLink {
                         ReviewView(reviewID: wineID, type: "wine")
@@ -131,8 +133,8 @@ struct WineDetailView: View {
                             print(completion)
                         } receiveValue: { response in
                             if response {
-//                                    self.tag = 1
-//                                self.wineLiked.toggle()
+                                //                                    self.tag = 1
+                                //                                self.wineLiked.toggle()
                             }
                         }.store(in: &homeViewModel.cancellables)
                     
@@ -153,8 +155,13 @@ struct WineDetailView: View {
             .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
             .frame(alignment: .bottom)
         }
-        .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image("back_arrow")
+                .imageScale(.large)
+        })
         .background(Color.gray800)
     }
     

@@ -12,12 +12,10 @@ struct ClassDetailView: View {
     @Binding var showTabBar: Bool
     @State var classLiked: Bool
     var classID: Int
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            NaviView(leftButton: ["back_arrow", "back_home"],title: "상세",rightButton: "search")
-                .ignoresSafeArea()
-            
             ScrollView(showsIndicators: false) {
                 VStack {
                     AsyncImage(url: URL(string: classViewModel.classDetail?.photos[0].file ?? "")) { image in
@@ -121,8 +119,13 @@ struct ClassDetailView: View {
             .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
             .frame(alignment: .bottom)
         }
-        .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image("back_arrow")
+                .imageScale(.large)
+        })
         .background(Color.gray800)
     }
 }

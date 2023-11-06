@@ -10,12 +10,10 @@ import SwiftUI
 struct WineReviewListView: View {
     @Binding var showTabBar: Bool
     var reviewList: ReviewList = []
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            NaviView(leftButton: ["back_arrow", "back_home"],title: "상세",rightButton: "search")
-                .ignoresSafeArea()
-         
             ScrollView(showsIndicators: false) {
                 VStack {
                     ForEach(reviewList, id: \.self) { review in
@@ -30,6 +28,12 @@ struct WineReviewListView: View {
             showTabBar = false
         }
         .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image("back_arrow")
+                .imageScale(.large)
+        })
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color.gray800)
     }

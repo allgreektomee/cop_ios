@@ -14,7 +14,7 @@ struct LikeView: View {
     @State var selectWineClass = false // true 면 wine , false 면 class
     
     var body: some View {
-        NavigationView {
+        VStack {
             ScrollView(showsIndicators: false) {
                 VStack {
                     ListSlideTitle(title: "관심있는 모든 와인 ", subTitle: "나의 위시리스트와 주문 내역을 확인할 수 있어요.", image: "rib")
@@ -28,16 +28,16 @@ struct LikeView: View {
                     WishOrderMenu(isSelectSegment: $selectWishOrder,
                                   selectWineClass: $selectWineClass,
                                   likeViewModel: likeViewModel)
-                        .padding(.top, 36)
-                        .padding(.leading, 20)
-                        .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+                    .padding(.top, 36)
+                    .padding(.leading, 20)
+                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
                     
                     LikeMenu(isSelectSegment: $selectWineClass,
                              selectWishMenu: $selectWishOrder,
                              likeViewModel: likeViewModel)
-                        .padding(.top, 2)
-                        .padding(.leading, 24)
-                        .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+                    .padding(.top, 2)
+                    .padding(.leading, 24)
+                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
                     
                     //wine
                     WineLikeListView(showTabBar: $showTabBar, wineLikeList: likeViewModel.likeWineList, classLikeList: likeViewModel.likeClassList)
@@ -60,17 +60,16 @@ struct LikeView: View {
                     .opacity(selectWineClass ? 1 : 0)
                     .frame(height: selectWineClass ? nil : 0)
                     .padding(.bottom, 120)
-                    
-                    
                 }
-                .onAppear {
-                    likeViewModel.getLikeWineList()
-                }
-                
             }
+            .ignoresSafeArea()
             .background(Color.gray800)
+            .onAppear {
+                likeViewModel.getLikeWineList()
+            }
+            .navigationBarBackButtonHidden(true)
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -12,11 +12,10 @@ struct ReviewView: View {
     @State var text: String = ""
     var reviewID: Int = 1
     var type: String?
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            NaviView(leftButton: ["back_arrow", "back_home"],title: "상세",rightButton: "search")
-                .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
                 VStack {
@@ -79,7 +78,12 @@ struct ReviewView: View {
             likeViewModel.getWineReview(id: reviewID)
         }
         .navigationBarBackButtonHidden(true)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image("back_arrow")
+                .imageScale(.large)
+        })
         .background(Color.gray800)
     }
 }
