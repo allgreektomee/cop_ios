@@ -23,6 +23,7 @@ struct LikeWineCell: View {
                     AsyncImage(url: URL(string: wine.photos[0].file)) { image in
                         image
                             .resizable()
+                            .aspectRatio(contentMode: .fit)
                             .cornerRadius(5)
                             .frame(width: 137, height: 184)
                     } placeholder: {

@@ -29,7 +29,7 @@ struct LoginView: View {
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(10.0)
                 
-                TextField(pwText, text: $pwText, prompt: Text("  비밀번호를 입력해주세요."))
+                SecureField(pwText, text: $pwText, prompt: Text("  비밀번호를 입력해주세요."))
                     .font(.system(size: 14))
                     .foregroundColor(.primary)
                     .focused($isFocused)
@@ -115,7 +115,7 @@ struct LoginView: View {
                             }
                         }.store(in: &loginViewModel.cancellables)
                 } label: {
-                    Text("둘러보기")
+                    Text("계정 없이 둘러보기")
                         .foregroundColor(Color.white)
                         .font(.system(size: 14))
                         .underline()

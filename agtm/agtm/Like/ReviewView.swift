@@ -13,6 +13,7 @@ struct ReviewView: View {
     var reviewID: Int = 1
     var type: String?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var showingAlert = false
     
     var body: some View {
         VStack {
@@ -60,6 +61,8 @@ struct ReviewView: View {
                             } else {
                                 likeViewModel.getClassReview(id: reviewID)
                             }
+                            showingAlert.toggle()
+                            text = ""
                         }
                     }
                     .store(in: &likeViewModel.cancellables)
@@ -67,7 +70,10 @@ struct ReviewView: View {
                     Text("등록")
                         .font(.system(size: 12, weight: .medium))
                 }
-                
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("댓글 등록"), message: Text("댓글이 등록되었습니다."),
+                          dismissButton: .default(Text("확인")))
+                }
             }
             .frame(maxWidth: .infinity)
             .frame(height: 60)

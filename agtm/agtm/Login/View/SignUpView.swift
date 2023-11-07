@@ -38,7 +38,7 @@ struct SignUpView: View {
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(10.0)
                 
-                TextField(pwText, text: $pwText, prompt: Text("  비밀번호를 입력해주세요."))
+                SecureField(pwText, text: $pwText, prompt: Text("  비밀번호를 입력해주세요."))
                     .font(.system(size: 14))
                     .foregroundColor(.primary)
                     .focused($isFocused)
@@ -47,7 +47,7 @@ struct SignUpView: View {
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(10.0)
                 
-                TextField(pw2Text, text: $pw2Text, prompt: Text("  비밀번호 확인"))
+                SecureField(pw2Text, text: $pw2Text, prompt: Text("  비밀번호 확인"))
                     .font(.system(size: 14))
                     .foregroundColor(.primary)
                     .focused($isFocused)

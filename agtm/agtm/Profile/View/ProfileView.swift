@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @Binding var showTabBar: Bool
+    @State var isShowAlert: Bool = false
     
     var body: some View {
             VStack {
@@ -107,15 +108,19 @@ struct ProfileView: View {
                                     .padding(.leading, 20)
                             }
                             
-                            HStack(spacing: 130) {
-                                Text("탈퇴하기")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                    .frame(width: UIScreen.main.bounds.width * 0.35, alignment: .leading)
-                                
-                                Image("arrow")
-                                    .padding(.top, 3)
-                                    .padding(.leading, 20)
+                            Button {
+                                isShowAlert.toggle()
+                            } label: {
+                                HStack(spacing: 130) {
+                                    Text("문의")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .frame(width: UIScreen.main.bounds.width * 0.35, alignment: .leading)
+                                    
+                                    Image("arrow")
+                                        .padding(.top, 3)
+                                        .padding(.leading, 20)
+                                }
                             }
                         }
                         .padding(.top, 10)

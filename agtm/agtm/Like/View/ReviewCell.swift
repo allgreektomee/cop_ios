@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ReviewCell: View {
     var review: Review?
+    @State private var showingAlert = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -37,6 +38,19 @@ struct ReviewCell: View {
                                 .frame(width: 10, height: 10)
                                 .padding(.leading, -5)
                         }
+                        
+                        Button {
+                            // alert
+                            self.showingAlert.toggle()
+                        } label: {
+                            Text("신고하기")
+                                .font(.system(size: 12))
+                        }
+                        .alert(isPresented: $showingAlert) {
+                            Alert(title: Text("신고완료"), message: Text("검토까지는 최대 24시간 소요됩니다."),
+                                  dismissButton: .default(Text("확인")))
+                        }
+
                     }
                     Text(review?.comment ?? "")
                         .font(.system(size: 14))

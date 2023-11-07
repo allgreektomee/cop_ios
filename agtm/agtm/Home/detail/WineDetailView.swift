@@ -13,6 +13,7 @@ struct WineDetailView: View {
     @State var wineLiked: Bool
     var wineID: Int
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var showingAlert = false
     
     var body: some View {
         VStack {
@@ -133,8 +134,7 @@ struct WineDetailView: View {
                             print(completion)
                         } receiveValue: { response in
                             if response {
-                                //                                    self.tag = 1
-                                //                                self.wineLiked.toggle()
+                                showingAlert.toggle()
                             }
                         }.store(in: &homeViewModel.cancellables)
                     
@@ -147,6 +147,10 @@ struct WineDetailView: View {
                         }
                         .foregroundColor(.mainYellow)
                         .frame(width: 206, height: 60, alignment: .trailing)
+                }
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("완료"), message: Text("장바구니에 담겼습니다."),
+                          dismissButton: .default(Text("확인")))
                 }
             }
             .frame(maxWidth: .infinity)
